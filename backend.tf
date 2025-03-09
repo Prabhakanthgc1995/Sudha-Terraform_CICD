@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-bucket-nikhil"
+    bucket = "atarv-sudha-s3-1"
     key = "remote.tfstate"
     region = "ap-south-1"
   }
