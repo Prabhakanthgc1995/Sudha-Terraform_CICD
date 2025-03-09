@@ -12,10 +12,10 @@ pipeline {
      environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        AWS_DEFAULT_REGION    = "us-east-2"
-        SSH_KEY = "/home/ubuntu/.ssh/revision.pem"  // Replace with your private key
+        AWS_DEFAULT_REGION    = "ap-south-1"
+        SSH_KEY = "/home/ubuntu/.ssh/EC2_Keypair.pem"  // Replace with your private key
         ANSIBLE_PLAYBOOK = "webserver.yml"
-        GIT_REPO = "https://github.com/hhgsharish/Ansible_Playbook_Harish.git"
+        GIT_REPO = "https://github.com/nikhilpatil027/Terraform_CICD.git"
     }
 
 
@@ -31,12 +31,12 @@ pipeline {
                         dir("terraform") {
                             // Check if the "terra-cloud" directory exists
                             sh '''
-                                if [ -d "terra-cloud" ]; then
+                                if [ -d "Terraform_CICD" ]; then
                                     echo "Directory exists. Deleting it..."
-                                    rm -rf terra-cloud
+                                    rm -rf Terraform_CICD
                                 fi
                                 echo "Cloning the repository..."
-                                git clone "https://github.com/hhgsharish/terra-cloud.git"
+                                git clone "https://github.com/nikhilpatil027/Terraform_CICD.git"
                             '''
                         }
                     }
@@ -85,7 +85,7 @@ pipeline {
             }
             
            steps {
-                dir('terraform/terra-cloud') {  // Add this directory block, same as in Plan stage
+                dir('terraform/Terraform_CICD') {  // Add this directory block, same as in Plan stage
                     sh "terraform apply -input=false tfplan"
                 }
             }
@@ -97,7 +97,7 @@ pipeline {
             }
         
         steps {
-                dir('terraform/terra-cloud') {  // Add this directory block, same as in Plan stage
+                dir('terraform/Terraform_CICD') {  // Add this directory block, same as in Plan stage
            sh "terraform destroy --auto-approve"
                 }
         }
@@ -112,7 +112,7 @@ pipeline {
           stage('Get EC2 Public IP') {
             steps {
                 script {
-                    dir('terraform/terra-cloud') {
+                    dir('terraform/Terraform_CICD') {
                     def output = sh(script: "terraform output -raw ec2_public_ip", returnStdout: true).trim()
                     env.EC2_IP = output
                     echo "EC2 Public IP: ${env.EC2_IP}"
