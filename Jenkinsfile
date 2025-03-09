@@ -29,7 +29,7 @@ pipeline {
             steps {
                     script {
                         dir("terraform") {
-                            // Check if the "terra-cloud" directory exists
+                            
                             sh '''
                                 if [ -d "Terraform_CICD" ]; then
                                     echo "Directory exists. Deleting it..."
