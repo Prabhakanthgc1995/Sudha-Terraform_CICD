@@ -15,7 +15,7 @@ pipeline {
         AWS_DEFAULT_REGION    = "ap-south-1"
         SSH_KEY = "/home/ubuntu/.ssh/terraform.pem"  // Replace with your private key
         ANSIBLE_PLAYBOOK = "webserver.yml"
-        GIT_REPO = "https://github.com/Sudha2804/Sudha-Ansible_Playbook.git"
+        GIT_REPO = "https://github.com/Prabhakanthgc1995/Sudha-Ansible_Playbook.git"
     }
 
 
@@ -36,7 +36,7 @@ pipeline {
                                     rm -rf Sudha-Terraform_CICD
                                 fi
                                 echo "Cloning the repository..."
-                                git clone "https://github.com/Sudha2804/Sudha-Terraform_CICD.git"
+                                git clone "https://github.com/Prabhakanthgc1995/Sudha-Terraform_CICD.git"
                             '''
                         }
                     }
