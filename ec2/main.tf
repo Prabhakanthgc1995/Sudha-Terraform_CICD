@@ -1,6 +1,6 @@
 #security group
-resource "aws_security_group" "webserver_access2" {
-        name = "webserver_access2"
+resource "aws_security_group" "webserver_access" {
+        name = "webserver_access"
         description = "allow ssh and http"
 
         ingress {
@@ -32,7 +32,7 @@ resource "aws_instance" "ourfirst" {
   availability_zone      = "ap-south-1a"
   instance_type          = "t2.micro"
   user_data              = filebase64("install_ansible.sh")
-  vpc_security_group_ids = [aws_security_group.webserver_access2.id]  # Correct reference
+  vpc_security_group_ids = [aws_security_group.webserver_access.id]  # Correct reference
   key_name               = "terraform"
   
   tags = {
